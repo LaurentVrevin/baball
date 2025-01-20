@@ -12,5 +12,7 @@ data class Ball(
     var velocityX: Float,
     var velocityY: Float,
     var size: Float = 50f,
-    var collisionCount: Int = 0
+    var collisionCount: Int = 0,
+    var isActive: Boolean = true,
+    var shouldBeRemoved: Boolean = false
 )

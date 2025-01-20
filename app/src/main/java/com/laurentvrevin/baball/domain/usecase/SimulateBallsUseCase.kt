@@ -24,15 +24,11 @@ class SimulateBallsUseCase(
         gridSize: Float,
         explosionCounter: Int
     ) {
-
         coroutineScope.launch {
             while (true) {
                 val deltaTime = 0.016f
 
-                // Create spatial grid for collision optimization
-                val spatialGrid = buildSpatialGrid(balls, gridSize)
-
-                // Update each ball's position and velocity
+                // Update ball positions and velocities
                 balls.forEach { ball ->
                     updateBallPositionAndVelocity(
                         ball,
@@ -44,10 +40,15 @@ class SimulateBallsUseCase(
                         screenHeight
                     )
                 }
-                // Process collisions and explosions
+
+                // Detect collisions
+                val spatialGrid = buildSpatialGrid(balls, gridSize)
                 processCollisions(balls, spatialGrid, gridSize)
+
+                // Manage explosions
                 processExplosions(balls, explosions, explosionCounter, collisionThreshold, coroutineScope)
 
+                // Wait for the next frame
                 kotlinx.coroutines.delay(16L)
             }
         }
