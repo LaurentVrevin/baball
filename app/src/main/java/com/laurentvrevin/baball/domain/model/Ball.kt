@@ -8,11 +8,9 @@ data class Ball(
     val id: Int,
     val color: Color,
     val positionY: Animatable<Float, AnimationVector1D>,
-    var positionX: Float,
-    var velocityX: Float,
-    var velocityY: Float,
+    val positionX: Animatable<Float, AnimationVector1D>,
+    var velocity: Velocity,
     var size: Float = 50f,
     var collisionCount: Int = 0,
-    var isActive: Boolean = true,
-    var shouldBeRemoved: Boolean = false
+    var isActive: Boolean = true
 )

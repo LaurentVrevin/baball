@@ -1,4 +1,5 @@
 package com.laurentvrevin.baball.presentation.ui.screen
+
 import androidx.compose.animation.core.Animatable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
@@ -10,6 +11,8 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import com.laurentvrevin.baball.domain.model.Ball
 import com.laurentvrevin.baball.domain.model.Explosion
+import com.laurentvrevin.baball.domain.model.ExplosionAnimationConfig
+import com.laurentvrevin.baball.domain.model.Velocity
 import com.laurentvrevin.baball.domain.usecase.SimulateBallsUseCase
 import com.laurentvrevin.baball.presentation.ui.components.BallCanvas
 import kotlinx.coroutines.launch
@@ -17,7 +20,18 @@ import kotlinx.coroutines.launch
 @Composable
 fun OptimizedExplodingBallsScreen() {
     val coroutineScope = rememberCoroutineScope()
-    val simulateBallsUseCase = SimulateBallsUseCase(coroutineScope)
+
+    //Explosion configuration
+    val explosionConfig = ExplosionAnimationConfig(
+        radiusDuration = 700,
+        opacityDuration = 700,
+        explosionRadius = 200f
+    )
+
+    val simulateBallsUseCase = SimulateBallsUseCase(
+        coroutineScope = coroutineScope,
+        explosionConfig = explosionConfig
+    )
     val gravity = 900f
     val damping = 0.7f
     val collisionThreshold = 20
@@ -48,9 +62,11 @@ fun OptimizedExplodingBallsScreen() {
                                     (0..255).random() / 255f
                                 ),
                                 positionY = Animatable(offset.y),
-                                positionX = offset.x,
-                                velocityX = (-200..200).random().toFloat(),
-                                velocityY = 0f,
+                                positionX = Animatable(offset.x),
+                                velocity = Velocity(
+                                    y = (-200..200).random().toFloat(),
+                                    x = 0f
+                                ),
                                 size = (20..80).random().toFloat()
                             )
                         )

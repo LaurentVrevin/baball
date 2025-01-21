@@ -2,6 +2,7 @@ package com.laurentvrevin.baball.domain.usecase
 
 import com.laurentvrevin.baball.domain.model.Ball
 import com.laurentvrevin.baball.domain.model.Explosion
+import com.laurentvrevin.baball.domain.model.ExplosionAnimationConfig
 import com.laurentvrevin.baball.utils.collision.processCollisions
 import com.laurentvrevin.baball.utils.explosion.processExplosions
 import com.laurentvrevin.baball.utils.physic.buildSpatialGrid
@@ -10,7 +11,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 class SimulateBallsUseCase(
-    private val coroutineScope: CoroutineScope
+    private val coroutineScope: CoroutineScope,
+    private val explosionConfig: ExplosionAnimationConfig = ExplosionAnimationConfig()
 ) {
     fun execute(
         balls: MutableList<Ball>,
@@ -46,7 +48,14 @@ class SimulateBallsUseCase(
                 processCollisions(balls, spatialGrid, gridSize)
 
                 // Manage explosions
-                processExplosions(balls, explosions, explosionCounter, collisionThreshold, coroutineScope)
+                processExplosions(
+                    balls,
+                    explosions,
+                    explosionCounter,
+                    collisionThreshold,
+                    coroutineScope,
+                    config = explosionConfig
+                )
 
                 // Wait for the next frame
                 kotlinx.coroutines.delay(16L)

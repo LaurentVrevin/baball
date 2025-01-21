@@ -10,7 +10,7 @@ fun DrawScope.drawExplosions(explosions: List<Explosion>) {
         drawCircle(
             color = Color.Red.copy(alpha = explosion.opacity.value),
             radius = explosion.radius.value,
-            center = Offset(explosion.positionX, explosion.positionY)
+            center = Offset(explosion.position.x, explosion.position.y)
         )
     }
 }

@@ -10,7 +10,7 @@ fun DrawScope.drawBalls(balls: List<Ball>) {
         drawCircle(
             color = ball.color,
             radius = ball.size,
-            center = Offset(ball.positionX, ball.positionY.value)
+            center = Offset(ball.positionX.value, ball.positionY.value)
         )
     }
 }

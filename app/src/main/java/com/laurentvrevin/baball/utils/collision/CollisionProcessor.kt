@@ -9,7 +9,8 @@ suspend fun processCollisions(
     gridSize: Float
 ) {
     balls.forEach { ball ->
-        val cellX = (ball.positionX / gridSize).toInt()
+        // Using the current values of positionX and positionY
+        val cellX = (ball.positionX.value / gridSize).toInt()
         val cellY = (ball.positionY.value / gridSize).toInt()
 
         for (neighborCellX in (cellX - 1)..(cellX + 1)) {
