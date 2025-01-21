@@ -21,17 +21,9 @@ import kotlinx.coroutines.launch
 fun OptimizedExplodingBallsScreen() {
     val coroutineScope = rememberCoroutineScope()
 
-    //Explosion configuration
-    val explosionConfig = ExplosionAnimationConfig(
-        radiusDuration = 700,
-        opacityDuration = 700,
-        explosionRadius = 200f
-    )
-
-    val simulateBallsUseCase = SimulateBallsUseCase(
-        coroutineScope = coroutineScope,
-        explosionConfig = explosionConfig
-    )
+    val simulateBallsUseCase = remember {
+        SimulateBallsUseCase(coroutineScope)
+    }
     val gravity = 900f
     val damping = 0.7f
     val collisionThreshold = 20
@@ -84,7 +76,7 @@ fun OptimizedExplodingBallsScreen() {
 
         // Start simulation
         LaunchedEffect(Unit) {
-            simulateBallsUseCase.execute(
+            simulateBallsUseCase.start(
                 balls = balls,
                 explosions = explosions,
                 gravity = gravity,
@@ -96,6 +88,11 @@ fun OptimizedExplodingBallsScreen() {
                 gridSize = gridSize,
                 explosionCounter = explosionCounter
             )
+        }
+        DisposableEffect(Unit) {
+            onDispose {
+                simulateBallsUseCase.stop()
+            }
         }
     }
 }
