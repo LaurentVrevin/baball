@@ -12,6 +12,12 @@ suspend fun updateBallPositionAndVelocity(
     screenWidth: Float,
     screenHeight: Float
 ) {
+    val frictionFactor = 0.99f
+    ball.velocity = ball.velocity.copy(
+        x = ball.velocity.x * frictionFactor,
+        y = ball.velocity.y * frictionFactor
+    )
+
     // Update speeds with gravity
     ball.velocity = ball.velocity.copy(
         y = ball.velocity.y + gravity * deltaTime
@@ -48,6 +54,7 @@ suspend fun updateBallPositionAndVelocity(
     if (ball.velocity.y.absoluteValue < speedThreshold) {
         ball.velocity = ball.velocity.copy(y = 0f)
     }
+
 }
 
 // Builds a spatial grid to optimize collision detection
