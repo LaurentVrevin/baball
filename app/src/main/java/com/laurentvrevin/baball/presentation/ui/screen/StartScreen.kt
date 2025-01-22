@@ -21,7 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.laurentvrevin.baball.presentation.ui.theme.BlueText
-import com.laurentvrevin.baball.presentation.ui.theme.gamingFont
+
 
 @Composable
 fun StartScreen(onStart: () -> Unit) {

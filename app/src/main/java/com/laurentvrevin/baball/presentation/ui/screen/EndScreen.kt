@@ -20,7 +20,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.laurentvrevin.baball.presentation.ui.components.RestartButton
 import com.laurentvrevin.baball.presentation.ui.theme.BlueText
-import com.laurentvrevin.baball.presentation.ui.theme.gamingFont
 
 @Composable
 fun EndScreen(finalScore: Int, onRestart: () -> Unit) {
@@ -42,7 +41,7 @@ fun EndScreen(finalScore: Int, onRestart: () -> Unit) {
                     .align(Alignment.CenterHorizontally)
             )
             Text(
-                text = "You explosed : $finalScore balls ",
+                text = "You exploded : $finalScore balls ",
                 color = Color.Black,
                 fontSize = MaterialTheme.typography.titleMedium.fontSize,
                 fontWeight = FontWeight.Bold,

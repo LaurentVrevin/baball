@@ -10,16 +10,11 @@ import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
-import com.laurentvrevin.baball.R
+
 
 
 // Define the FontFamily
-val gamingFont = FontFamily(
-    Font(R.font.pressstart, FontWeight.Normal)
-)
+
 private val DarkColorScheme = darkColorScheme(
 
 

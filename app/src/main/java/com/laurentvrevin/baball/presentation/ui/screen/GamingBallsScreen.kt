@@ -25,7 +25,7 @@ fun OptimizedExplodingBallsScreen() {
         SimulateBallsUseCase(coroutineScope)
     }
 
-    val timerDefined = 20
+    val timerDefined = 10
     var isGameStarted by remember { mutableStateOf(false) }
     var timer by remember { mutableIntStateOf(timerDefined) }
     var explosionCounter by remember { mutableIntStateOf(0) }
