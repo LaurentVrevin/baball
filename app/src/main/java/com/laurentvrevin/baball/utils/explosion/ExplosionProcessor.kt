@@ -17,36 +17,38 @@ fun processExplosions(
     explosionCounter: Int,
     collisionThreshold: Int,
     coroutineScope: CoroutineScope,
-    config: ExplosionAnimationConfig // Configurations pour les explosions
+    config: ExplosionAnimationConfig, // Configurations for explosions
+    onExplosion: () -> Unit // Callback to notify an explosion
 ) {
     val explodedBalls = balls.filter { it.collisionCount >= collisionThreshold }
     explodedBalls.forEach { ball ->
         coroutineScope.launch {
             val explosion = Explosion(
                 id = explosionCounter.absoluteValue,
-                position = Offset(ball.positionX.value, ball.positionY.value), // Utilisation d'Offset
+                position = Offset(ball.positionX.value, ball.positionY.value), // Using Offset
                 radius = Animatable(0f),
                 opacity = Animatable(1f)
             )
             explosions.add(explosion)
+            onExplosion() // Notify that an explosion has occurred
 
-            // Animation du rayon de l'explosion
+            // Animation for explosion radius
             launch {
                 explosion.radius.animateTo(
                     targetValue = config.explosionRadius,
                     animationSpec = tween(durationMillis = config.radiusDuration)
                 )
             }
-            // Animation de l'opacité
+            // Animation for opacity
             launch {
                 explosion.opacity.animateTo(
                     targetValue = 0f,
                     animationSpec = tween(durationMillis = config.opacityDuration)
                 )
             }
-            // Suppression de l'explosion après l'animation
+            // Remove the explosion after the animation
             launch {
-                kotlinx.coroutines.delay(config.radiusDuration.toLong() + 300) // Temps de sécurité
+                kotlinx.coroutines.delay(config.radiusDuration.toLong() + 300) // Safety buffer
                 explosions.remove(explosion)
             }
         }

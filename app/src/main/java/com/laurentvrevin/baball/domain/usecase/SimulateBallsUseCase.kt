@@ -30,11 +30,13 @@ class SimulateBallsUseCase(
         screenWidth: Float,
         screenHeight: Float,
         gridSize: Float,
-        explosionCounter: Int
+        explosionCounter: Int,
+        onExplosion: () -> Unit // Adding the callback
     ) {
-        if (_isRunning.value) return
+        if (_isRunning.value) return // Prevent starting if already running
 
         _isRunning.value = true
+        Log.d("SimulateBallsUseCase", "Simulation started")
 
         coroutineScope.launch {
             while (_isRunning.value) {
@@ -48,7 +50,8 @@ class SimulateBallsUseCase(
                     screenWidth,
                     screenHeight,
                     gridSize,
-                    explosionCounter
+                    explosionCounter,
+                    onExplosion // Pass the callback
                 )
                 kotlinx.coroutines.delay(16L)
             }
@@ -65,10 +68,13 @@ class SimulateBallsUseCase(
         screenWidth: Float,
         screenHeight: Float,
         gridSize: Float,
-        explosionCounter: Int
+        explosionCounter: Int,
+        onExplosion: () -> Unit // Adding the callback
     ) {
         try {
             val deltaTime = 0.016f
+
+            // Update ball positions and velocities
             balls.forEach { ball ->
                 updateBallPositionAndVelocity(
                     ball,
@@ -80,15 +86,20 @@ class SimulateBallsUseCase(
                     screenHeight
                 )
             }
+
+            // Detect collisions
             val spatialGrid = buildSpatialGrid(balls, gridSize)
             processCollisions(balls, spatialGrid, gridSize)
+
+            // Handle explosions
             processExplosions(
                 balls,
                 explosions,
                 explosionCounter,
                 collisionThreshold,
                 coroutineScope,
-                config = explosionConfig
+                config = explosionConfig,
+                onExplosion = onExplosion // Pass the callback
             )
         } catch (e: Exception) {
             Log.e("SimulateBallsUseCase", "Error during simulation frame", e)
@@ -98,6 +109,5 @@ class SimulateBallsUseCase(
     fun stop() {
         if (!_isRunning.value) return
         _isRunning.value = false
-
     }
 }
