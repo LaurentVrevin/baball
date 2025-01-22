@@ -14,41 +14,44 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.laurentvrevin.baball.presentation.ui.components.RestartButton
+import com.laurentvrevin.baball.presentation.ui.theme.BlueText
+import com.laurentvrevin.baball.presentation.ui.theme.gamingFont
 
 @Composable
 fun EndScreen(finalScore: Int, onRestart: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White),
+            .background(Color.Transparent),
         contentAlignment = Alignment.Center
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
-                text = "Game Over!",
-                color = MaterialTheme.colorScheme.primary,
-                fontSize = 40.sp,
-                modifier = Modifier.padding(16.dp)
+                text = "GG !!!",
+                color = BlueText,
+                fontSize = MaterialTheme.typography.displayMedium.fontSize,
+                fontWeight = FontWeight.Bold,
+                letterSpacing = 0.5.sp,
+                lineHeight = 60.sp,
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
             )
             Text(
-                text = "Final Score: $finalScore explosions",
+                text = "You explosed : $finalScore balls ",
                 color = Color.Black,
-                fontSize = 20.sp,
+                fontSize = MaterialTheme.typography.titleMedium.fontSize,
+                fontWeight = FontWeight.Bold,
+
                 modifier = Modifier.padding(16.dp)
             )
             Spacer(modifier = Modifier.height(16.dp))
 
-            Text(
-                text = "Restart",
-                color = Color.Blue,
-                fontSize = 20.sp,
-                modifier = Modifier
-                    .clickable { onRestart() }
-                    .padding(16.dp)
-            )
+            RestartButton(onRestart = onRestart)
         }
     }
 }

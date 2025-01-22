@@ -101,7 +101,8 @@ fun OptimizedExplodingBallsScreen() {
                         explosionCounter = 0
                         balls.clear()
                         explosions.clear()
-                        isGameStarted = false
+                        isGameStarted = true
+
                     }
                 )
             }

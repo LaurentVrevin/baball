@@ -46,7 +46,6 @@ fun StartScreen(onStart: () -> Unit) {
                 color = BlueText,
                 fontSize = MaterialTheme.typography.displayMedium.fontSize,
                 fontWeight = FontWeight.Bold,
-                fontFamily = gamingFont,
                 letterSpacing = 0.5.sp,
                 lineHeight = 60.sp,
                 modifier = Modifier
